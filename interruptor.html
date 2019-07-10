@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Remote LED</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    var android_things_ip = "192.168.2.120";
+    var android_things_port = "8080";
+    var url = `http://${android_things_ip}:${android_things_port}/rest/led`;
+    var content_type="application/json; charset=utf-8";
+    
+    function switchOn() {
+        $.ajax({type: "POST", url:url, data: "{\"estado\":true}", contentType: content_type, dataType:"json"});
+    }
+
+    function switchOff() {
+        $.ajax({type: "POST", url:url, data: "{\"estado\":false}", contentType: content_type, dataType:"json"});
+    }
+    function getReading() {
+        $.ajax({type: "GET", url:url, success: callback});
+    }
+    function callback(data, status) {
+        alert(data);
+    }
+    </script>
+</head>
+<body align="center">
+    <h1>Control Remoto de LED</h1>
+    <p id="status"></p>
+    <input type="button"  onclick="switchOn()" value="ON">
+    <input type="button"  onclick="switchOff()" value="OFF"> <br/> <br/>
+    <input type="button"  onclick="getReading()" value="Valor Actual">
+</body>
+</html>

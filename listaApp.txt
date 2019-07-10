@@ -1,0 +1,2 @@
+package:cr.codingale.restfulapi
+package:cr.codingale.things
